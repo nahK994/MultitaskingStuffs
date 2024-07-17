@@ -17,22 +17,19 @@ async def fetch_data(delay, id):
 async def main():
     print("Start of main coroutine")
     
-    task1 = fetch_data(2, 1)
+    task1 = asyncio.create_task(fetch_data(2, 1))
+    task2 = asyncio.create_task(fetch_data(2, 2))
+    task3 = asyncio.create_task(fetch_data(2, 3))
+
     result1 = await task1
-    print(f"Received result: {result1}")
-
-    task2 = fetch_data(2, 2)
     result2 = await task2
-    print(f"Received result: {result2}")
-
-    task3 = fetch_data(2, 3)
     result3 = await task3
-    print(f"Received result: {result3}")
+    print(result1, result2, result3)
 
     print("End of main coroutine")
+
 
 t1 = dt.now()
 asyncio.run(main())
 t2 = dt.now()
 print(f"Taken time {t2-t1}")
-
