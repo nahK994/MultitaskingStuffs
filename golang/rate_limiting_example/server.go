@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println("Server started....")
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
@@ -28,9 +28,9 @@ func main() {
 
 		go func(msg string) {
 			defer conn.Close()
+			fmt.Println("Got request from", conn.RemoteAddr().String())
+			fmt.Println("Processing", msg)
 			time.Sleep(time.Second)
-			fmt.Println(conn.RemoteAddr().String(), "-->", msg)
-			// resp := msg + " done"
 			_, err = conn.Write([]byte(msg + " done"))
 			if err != nil {
 				log.Fatal(err)
